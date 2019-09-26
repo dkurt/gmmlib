@@ -143,10 +143,10 @@ else()
 #	endif()
 #	target_link_libraries(${EXE_NAME} igfx_gmmumd_dll)
 
-    target_link_libraries(${EXE_NAME}
-        pthread
-		dl
-    )
+    target_link_libraries(${EXE_NAME} dl)
+    if (NOT ANDROID)
+      target_link_libraries(${EXE_NAME} pthread)
+    endif()
  endif()
 
 add_custom_target(Run_ULT ALL DEPENDS GMMULT)
@@ -157,4 +157,3 @@ add_custom_command(
     COMMAND echo running ULTs
     COMMAND ${EXE_NAME}  --gtest_filter=CTest*
 )
-
